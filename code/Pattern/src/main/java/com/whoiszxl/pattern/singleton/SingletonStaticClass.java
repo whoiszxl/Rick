@@ -25,6 +25,7 @@ public class SingletonStaticClass {
 		return ClassInstance.INSTANCE;
 	}
 	
+	//防止序列化创建多个对象  定义了 readResolve,则反序列化的时候直接返回这个方法的对象
 	private Object readResolve() throws ObjectStreamException{
 		return ClassInstance.INSTANCE;
 	}
