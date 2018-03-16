@@ -13,8 +13,6 @@ public class App {
 	public static void main(String[] args) {
 		
 		try {
-			
-			
 			Class<?> clazz = Class.forName("com.whoiszxl.reflect_annotation_demo.LongStudent");
 			
 			//获取类的所有有效注解
@@ -37,8 +35,5 @@ public class App {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
-		
 	}
 }
