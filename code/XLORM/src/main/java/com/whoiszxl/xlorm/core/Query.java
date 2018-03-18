@@ -1,40 +1,7 @@
-# 手写ORM框架
+package com.whoiszxl.xlorm.core;
 
-## 介绍一下
-手写一个可以实现对象和SQL自动映射的框架,整体用法设计是Hibernate的精简版,并使用一些设计模式
+import java.util.List;
 
-## 规范
-查询根据结果:
-* 多行多列:List<Object>
-* 一行多列:Object
-* 一行一列:Object or Number
-
-### 核心架构
-1. Query接口: 负责查询(对外提供服务的核心类)
-2. QueryFactory类: 负责根据配置信息创建query对象
-3. TypeConvertor接口: 负责类型转换
-4. TableContext类: 负责获取管理数据库所有表结构和类结构的关系,并可以根据表结构生成类结构
-5. DBManager类: 根据配置信息,维持连接对象的管理(具有连接池功能)
-6. 工具类: JDBCUtils,StringUtils,JavaFileUtils,ReflectUtils
-
-### 核心Bean
-1. ColumnInfo: 封装表中的一个字段的信息(字段类型,字段名称,键类型)
-2. Configuration: 封装配置文件信息
-3. TableInfo: 封装一张表的信息
-
-### 简单说明
-1. 核心: 使用简单,性能高,容易上手
-2. 配置文件: 使用资源文件
-3. 类名由表名生成,只有首字母大小写有区别
-4. Java对象的属性由表中字段生成,完全对应
-5. 只支持一个主键
-
-
-## 代码实现
-
-### query核心接口
-1. 封装DML操作和各种类型的select操作,通过接口定义好规范.
-```java
 /**
  * 负责查询(对外提供服务的核心类)
  * @author whoiszxl
@@ -114,5 +81,3 @@ public interface Query {
 	 */
 	public Number queryNumber(String sql, Object[] params);
 }
-
-```
