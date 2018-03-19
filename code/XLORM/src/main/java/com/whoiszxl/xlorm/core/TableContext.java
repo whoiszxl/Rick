@@ -9,6 +9,7 @@ import java.util.Map;
 
 import com.whoiszxl.xlorm.bean.ColumnInfo;
 import com.whoiszxl.xlorm.bean.TableInfo;
+import com.whoiszxl.xlorm.utils.JavaFileUtils;
 
 /**
  * 负责获取管理数据库所有表结构和类结构的关系,并可以根据表结构生成类结构
@@ -73,6 +74,8 @@ public class TableContext {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		updateJavaPOFile();
 	}
 	
 	/**
@@ -83,8 +86,15 @@ public class TableContext {
 		return tables;
 	}
 	
-	public static void main(String[]  args) {
-		System.out.println(getTableInfos());
+	/**
+	 * 根据表结构更新配置的po包下的Java类源码
+	 */
+	public static void updateJavaPOFile() {
+		Map<String, TableInfo> map = TableContext.getTableInfos();
+		for (TableInfo t : map.values()) {
+			JavaFileUtils.createJavaPOFile(t, new MySQLTypeConvertor());
+		}
 	}
+	
 	
 }

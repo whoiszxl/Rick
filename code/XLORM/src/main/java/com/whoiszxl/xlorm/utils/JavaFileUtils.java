@@ -1,7 +1,10 @@
 package com.whoiszxl.xlorm.utils;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -103,12 +106,51 @@ public class JavaFileUtils {
 		return src.toString();
 	};
 	
+	
+	/**
+	 * 根据表信息生成Java类的源代码po文件
+	 * @param tableInfo 表信息
+	 * @param convertor 类型转换器
+	 */
+	public static void createJavaPOFile(TableInfo tableInfo, TypeConvertor convertor) {
+		String src = createJavaSrc(tableInfo, convertor);
+		
+		//获取生成代码的路径
+		String srcPath = DBManager.getConfig().getSrcPath()+"\\";
+		String packagePath = DBManager.getConfig().getPoPackage().replaceAll("\\.", "/");
+		File f = new File(srcPath + packagePath);
+		if(!f.exists()) {
+			f.mkdirs();
+		}
+		
+		BufferedWriter bw = null;
+		try {
+			bw = new BufferedWriter(new FileWriter(f.getAbsoluteFile()+ "/" + StringUtils.firstChar2UpperCase(tableInfo.getTname()) + ".java"));
+			bw.write(src);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(bw!=null) {
+					bw.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+		
+		
+		
+		
+	}
+	
 	public static void main(String[] args) {
 		
 		Map<String, TableInfo> tableInfos = TableContext.getTableInfos();
 		TableInfo tableInfo = tableInfos.get("user");
-		String createJavaSrc = createJavaSrc(tableInfo, new MySQLTypeConvertor());
-		System.out.println(createJavaSrc);
+		createJavaPOFile(tableInfo, new MySQLTypeConvertor());
 	}
 	
 }

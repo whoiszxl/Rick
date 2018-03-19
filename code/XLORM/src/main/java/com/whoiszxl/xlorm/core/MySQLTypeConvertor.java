@@ -26,15 +26,15 @@ public class MySQLTypeConvertor implements TypeConvertor{
 				|| "float".equalsIgnoreCase(columnType)) {
 			return "Double";
 		}else if("clob".equalsIgnoreCase(columnType)) {
-			return "java.sql.Clob";
+			return "Clob";
 		}else if("blob".equalsIgnoreCase(columnType)) {
-			return "java.sql.Blob";
+			return "Blob";
 		}else if("date".equalsIgnoreCase(columnType)) {
-			return "java.sql.Date";
+			return "Date";
 		}else if("time".equalsIgnoreCase(columnType)) {
-			return "java.sql.Time";
+			return "Time";
 		}else if("timestamp".equalsIgnoreCase(columnType)) {
-			return "java.sql.Timestamp";
+			return "Timestamp";
 		}
 		
 		return null;
