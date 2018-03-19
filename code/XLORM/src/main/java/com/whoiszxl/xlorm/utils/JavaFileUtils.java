@@ -1,8 +1,16 @@
 package com.whoiszxl.xlorm.utils;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.whoiszxl.xlorm.bean.ColumnInfo;
 import com.whoiszxl.xlorm.bean.JavaFieldGetSet;
+import com.whoiszxl.xlorm.bean.TableInfo;
+import com.whoiszxl.xlorm.core.DBManager;
 import com.whoiszxl.xlorm.core.MySQLTypeConvertor;
+import com.whoiszxl.xlorm.core.TableContext;
 import com.whoiszxl.xlorm.core.TypeConvertor;
 
 /**
@@ -43,13 +51,64 @@ public class JavaFileUtils {
 		
 		return jfgs;
 	}
+
+	
+	/**
+	 * 根据表信息生成Java类的源代码
+	 * @param tableInfo 表信息
+	 * @param convertor 类型转换器
+	 * @return 类源代码
+	 */
+	public static String createJavaSrc(TableInfo tableInfo, TypeConvertor convertor) {
+		//获取到所有的字段信息
+		Map<String, ColumnInfo> columns = tableInfo.getColumns();
+		List<JavaFieldGetSet> javaFields = new ArrayList<JavaFieldGetSet>();
+		
+		for (ColumnInfo c : columns.values()) {
+			javaFields.add(createFieldGetSetSrc(c, convertor));
+		}
+		
+		StringBuilder src = new StringBuilder();
+		//生成package
+		src.append("package "+DBManager.getConfig().getPoPackage()+";\n\n");
+		
+		//生成import
+		src.append("import java.sql.*;\n");
+		src.append("import java.util.*;\n\n");
+		
+		//生成类声明语句
+		src.append("public class "+StringUtils.firstChar2UpperCase(tableInfo.getTname())+" {\n\n");
+		
+		//生成属性列表
+		for(JavaFieldGetSet f: javaFields) {
+			src.append(f.getFieldInfo());
+		}
+		src.append("\n\n");
+		
+		//生成get方法
+		for(JavaFieldGetSet f: javaFields) {
+			src.append(f.getGetInfo());
+		}
+		
+		src.append("\n\n");
+		
+		//生成set方法
+		for(JavaFieldGetSet f: javaFields) {
+			src.append(f.getSetInfo());
+		}
+		
+		//生成结束语句
+		src.append("}\n");
+		
+		return src.toString();
+	};
 	
 	public static void main(String[] args) {
-		ColumnInfo ci = new ColumnInfo("username", "varchar", 0);
 		
-		JavaFieldGetSet src = createFieldGetSetSrc(ci, new MySQLTypeConvertor());
-		
-		System.out.println(src.getSetInfo());
+		Map<String, TableInfo> tableInfos = TableContext.getTableInfos();
+		TableInfo tableInfo = tableInfos.get("user");
+		String createJavaSrc = createJavaSrc(tableInfo, new MySQLTypeConvertor());
+		System.out.println(createJavaSrc);
 	}
 	
 }

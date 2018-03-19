@@ -97,4 +97,12 @@ public class DBManager {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * 返回db配置信息
+	 * @return
+	 */
+	public static Configuration getConfig() {
+		return conf;
+	}
 }
