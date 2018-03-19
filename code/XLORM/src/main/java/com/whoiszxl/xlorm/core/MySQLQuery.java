@@ -1,10 +1,15 @@
 package com.whoiszxl.xlorm.core;
 
 import java.lang.reflect.Method;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 import com.whoiszxl.xlorm.bean.ColumnInfo;
 import com.whoiszxl.xlorm.bean.TableInfo;
+import com.whoiszxl.xlorm.po.User;
+import com.whoiszxl.xlorm.utils.JDBCUtils;
 import com.whoiszxl.xlorm.utils.ReflectUtils;
 import com.whoiszxl.xlorm.utils.StringUtils;
 
@@ -14,10 +19,32 @@ import com.whoiszxl.xlorm.utils.StringUtils;
  *
  */
 public class MySQLQuery implements Query{
+	
+	public static void main(String[] args) {
+		User user = new User();
+		user.setId(1);
+		
+		new MySQLQuery().delete(User.class, 1);
+	}
 
 	public int executeDML(String sql, Object[] params) {
-		// TODO Auto-generated method stub
-		return 0;
+		Connection conn = DBManager.getConnection();
+		int count = 0;
+		
+		PreparedStatement ps = null;
+		try {
+			ps = conn.prepareStatement(sql);
+			
+			//给sql传参
+			JDBCUtils.handleParams(ps, params);
+			count = ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			DBManager.close(ps, conn);
+		}
+		
+		return count;
 	}
 
 	public void insert(Object obj) {

@@ -3,6 +3,7 @@ package com.whoiszxl.xlorm.core;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Properties;
@@ -104,5 +105,29 @@ public class DBManager {
 	 */
 	public static Configuration getConfig() {
 		return conf;
+	}
+
+	/**
+	 * 关闭 ps和conn
+	 * @param ps
+	 * @param conn
+	 */
+	public static void close(PreparedStatement ps, Connection conn) {
+		try {
+			if(ps!=null) {
+				ps.close();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			if(conn!=null) {
+				conn.close();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 }
