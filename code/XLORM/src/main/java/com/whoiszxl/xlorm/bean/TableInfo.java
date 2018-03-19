@@ -1,5 +1,6 @@
 package com.whoiszxl.xlorm.bean;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,6 +24,21 @@ public class TableInfo {
 	 * 唯一主键
 	 */
 	private ColumnInfo onlyPriKey;
+	
+	
+	/**
+	 * 联合主键
+	 */
+	private List<ColumnInfo> priKeys;
+	
+	
+	public List<ColumnInfo> getPriKeys() {
+		return priKeys;
+	}
+
+	public void setPriKeys(List<ColumnInfo> priKeys) {
+		this.priKeys = priKeys;
+	}
 
 	public String getTname() {
 		return tname;
@@ -54,10 +70,28 @@ public class TableInfo {
 		this.columns = columns;
 		this.onlyPriKey = onlyPriKey;
 	}
+	
+	
+
+	public TableInfo(String tname, List<ColumnInfo> priKeys, Map<String, ColumnInfo> columns) {
+		super();
+		this.tname = tname;
+		this.columns = columns;
+		this.onlyPriKey = onlyPriKey;
+		this.priKeys = priKeys;
+	}
 
 	public TableInfo() {
 	
 	}
+
+	@Override
+	public String toString() {
+		return "TableInfo [tname=" + tname + ", columns=" + columns + ", onlyPriKey=" + onlyPriKey + ", priKeys="
+				+ priKeys + "]";
+	}
+	
+	
 	
 	
 }

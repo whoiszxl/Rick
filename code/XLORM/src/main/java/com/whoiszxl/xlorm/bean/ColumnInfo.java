@@ -56,5 +56,12 @@ public class ColumnInfo {
 	public ColumnInfo() {
 	
 	}
+
+	@Override
+	public String toString() {
+		return "ColumnInfo [name=" + name + ", dataType=" + dataType + ", keyType=" + keyType + "]";
+	}
+	
+	
 	
 }

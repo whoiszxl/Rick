@@ -1,6 +1,10 @@
 package com.whoiszxl.xlorm.core;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Properties;
 
 import com.whoiszxl.xlorm.bean.Configuration;
@@ -34,5 +38,63 @@ public class DBManager {
 		conf.setUseDB(pros.getProperty("datasource.dbtype"));
 	}
 
+	/**
+	 * 获取数据库连接
+	 * @return
+	 */
+	public static Connection getConnection() {
+		try {
+			Class.forName(conf.getDriver());
+			return DriverManager.getConnection(conf.getUrl(),conf.getUsername(),conf.getPassword());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 	
+	/**
+	 * 关闭 rs,ps和conn
+	 * @param rs
+	 * @param ps
+	 * @param conn
+	 */
+	public static void close(ResultSet rs, Statement ps, Connection conn) {
+		try {
+			if(rs!=null) {
+				rs.close();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			if(ps!=null) {
+				ps.close();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			if(conn!=null) {
+				conn.close();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 直接关闭conn连接
+	 * @param conn 数据库连接
+	 */
+	public static void close(Connection conn) {
+		try {
+			if(conn!=null) {
+				conn.close();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
