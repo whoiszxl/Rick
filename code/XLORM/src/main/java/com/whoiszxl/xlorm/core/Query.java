@@ -29,7 +29,7 @@ public interface Query {
 	 * @param clazz 对应表的clazz类
 	 * @param id 需要删除内容的id
 	 */
-	public void delete(Class clazz, int id);
+	public void delete(Class clazz, Object id);
 	
 	/**
 	 * 通过对象中的主键id删除表中的记录

@@ -10,6 +10,7 @@ import java.util.Map;
 import com.whoiszxl.xlorm.bean.ColumnInfo;
 import com.whoiszxl.xlorm.bean.TableInfo;
 import com.whoiszxl.xlorm.utils.JavaFileUtils;
+import com.whoiszxl.xlorm.utils.StringUtils;
 
 /**
  * 负责获取管理数据库所有表结构和类结构的关系,并可以根据表结构生成类结构
@@ -76,7 +77,25 @@ public class TableContext {
 		}
 		
 		updateJavaPOFile();
+		loadPOTables();
 	}
+	
+	
+	/**
+	 * 加载po包下的类
+	 */
+	public static void loadPOTables() {
+		
+		for (TableInfo tableInfo : tables.values()) {
+			try {
+				Class<?> c = Class.forName(DBManager.getConfig().getPoPackage()+"."+StringUtils.firstChar2UpperCase(tableInfo.getTname()));
+				poClassTableMap.put(c, tableInfo);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	
 	/**
 	 * 获取到所有的表信息
