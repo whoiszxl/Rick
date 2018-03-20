@@ -52,8 +52,6 @@ public class MySQLQuery implements Query{
 		return count;
 	}
 
-	
-
 	public void delete(Class clazz, Object id) {
 		//通过class找到对应的表信息
 		TableInfo tableInfo = TableContext.poClassTableMap.get(clazz);
@@ -158,18 +156,36 @@ public class MySQLQuery implements Query{
 	}
 
 	public Object queryUniqueRow(String sql, Class clazz, Object[] params) {
-		// TODO Auto-generated method stub
-		return null;
+		List list = queryRows(sql, clazz, params);
+		return (list==null && list.size()>0)?null:list.get(0);
 	}
 
 	public Object queryValue(String sql, Object[] params) {
-		// TODO Auto-generated method stub
-		return null;
+		Connection conn = DBManager.getConnection();
+		//存储查询结果
+		Object value = null;
+		
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			ps = conn.prepareStatement(sql);
+			//给sql传参
+			JDBCUtils.handleParams(ps, params);
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				value = rs.getObject(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			DBManager.close(ps, conn);
+		}
+		
+		return value;
 	}
 
 	public Number queryNumber(String sql, Object[] params) {
-		// TODO Auto-generated method stub
-		return null;
+		return (Number) queryValue(sql, params);
 	}
 
 }
