@@ -2,17 +2,20 @@ package com.whoiszxl.xlorm.core;
 
 import java.lang.reflect.Field;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 
 import com.whoiszxl.xlorm.bean.ColumnInfo;
 import com.whoiszxl.xlorm.bean.TableInfo;
 import com.whoiszxl.xlorm.po.User;
 import com.whoiszxl.xlorm.utils.JDBCUtils;
 import com.whoiszxl.xlorm.utils.ReflectUtils;
+
 
 
 /**
@@ -23,10 +26,10 @@ import com.whoiszxl.xlorm.utils.ReflectUtils;
 public class MySQLQuery implements Query{
 	
 	public static void main(String[] args) {
-		User user = new User();
-		user.setId(1);
-		user.setUsername("jingjing23");
-		new MySQLQuery().update(user, new String[] {"username"});
+		List rows = new MySQLQuery().queryRows("select * from user", User.class, new String[] {});
+		for (Object object : rows) {
+			System.out.println(object);
+		}
 	}
 
 	public int executeDML(String sql, Object[] params) {
@@ -119,8 +122,39 @@ public class MySQLQuery implements Query{
 	}
 
 	public List queryRows(String sql, Class clazz, Object[] params) {
-		// TODO Auto-generated method stub
-		return null;
+		Connection conn = DBManager.getConnection();
+		//存储查询结果
+		List list = null;
+		
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			ps = conn.prepareStatement(sql);
+			//给sql传参
+			JDBCUtils.handleParams(ps, params);
+			rs = ps.executeQuery();
+			ResultSetMetaData metaData = rs.getMetaData();
+			while(rs.next()) {
+				if(list == null) {
+					list = new ArrayList();
+				}
+				Object rowObj = clazz.newInstance();
+				for (int i = 0; i < metaData.getColumnCount(); i++) {
+					String columnName = metaData.getColumnLabel(i+1);
+					Object columnValue = rs.getObject(i+1);
+					
+					//调用rowObj的set方法,将columnValue的值设置进去
+					ReflectUtils.invokeSet(rowObj, columnName, columnValue);
+				}
+				list.add(rowObj);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			DBManager.close(ps, conn);
+		}
+		
+		return list;
 	}
 
 	public Object queryUniqueRow(String sql, Class clazz, Object[] params) {
