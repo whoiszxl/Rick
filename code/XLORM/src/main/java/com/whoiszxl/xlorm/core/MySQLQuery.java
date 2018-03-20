@@ -25,9 +25,8 @@ public class MySQLQuery implements Query{
 	public static void main(String[] args) {
 		User user = new User();
 		user.setId(1);
-		user.setUsername("jingjing");
-		user.setBirthday(new Date(System.currentTimeMillis()));
-		new MySQLQuery().insert(user);
+		user.setUsername("jingjing23");
+		new MySQLQuery().update(user, new String[] {"username"});
 	}
 
 	public int executeDML(String sql, Object[] params) {
@@ -102,8 +101,21 @@ public class MySQLQuery implements Query{
 	}
 	
 	public int update(Object obj, String[] fieldNames) {
-		// TODO Auto-generated method stub
-		return 0;
+		Class c = obj.getClass();
+		List<Object> params = new ArrayList<Object>();
+		TableInfo tableInfo = TableContext.poClassTableMap.get(c);
+		ColumnInfo onlyPriKey = tableInfo.getOnlyPriKey();
+		StringBuilder sql = new StringBuilder("update "+tableInfo.getTname()+" set ");
+		for (String fname : fieldNames) {
+			Object fvalue = ReflectUtils.invokeGet(fname, obj);
+			params.add(fvalue);
+			sql.append(fname+"=?,");
+		}
+		sql.setCharAt(sql.length()-1, ' ');
+		sql.append(" where "+onlyPriKey.getName()+"=? ");
+		params.add(ReflectUtils.invokeGet(onlyPriKey.getName(), obj));
+		
+		return executeDML(sql.toString(), params.toArray());
 	}
 
 	public List queryRows(String sql, Class clazz, Object[] params) {
