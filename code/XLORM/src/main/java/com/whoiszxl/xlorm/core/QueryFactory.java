@@ -14,9 +14,10 @@ public class QueryFactory {
 	
 	static {
 		try {
+			System.out.println(DBManager.getConfig().getQueryClass());
 			Class c = Class.forName(DBManager.getConfig().getQueryClass());
 			prototypeObj = (Query) c.newInstance();
-		} catch (ClassNotFoundException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -24,7 +25,7 @@ public class QueryFactory {
 	private QueryFactory() {}
 	 
 	
-	public Query createQuery() {
+	public static Query createQuery() {
 		try {
 			return (Query) prototypeObj.clone();
 		} catch (CloneNotSupportedException e) {

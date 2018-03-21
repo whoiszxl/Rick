@@ -34,11 +34,10 @@ public class MySQLQuery extends Query{
 	
 	public static void main(String[] args) {
 		
-		List rows = new MySQLQuery().queryRows("select * from user", User.class, null);
-		for (Object object : rows) {
+		List queryRows = QueryFactory.createQuery().queryRows("select * from user", User.class, null);
+		for (Object object : queryRows) {
 			System.out.println(object);
 		}
-		
 	}
 
 }
