@@ -20,7 +20,7 @@ import com.whoiszxl.xlorm.utils.ReflectUtils;
  * @author whoiszxl
  *
  */
-public abstract class Query {
+public abstract class Query implements Cloneable{
 	
 	
 	/**
@@ -282,5 +282,10 @@ public abstract class Query {
 	 * @return
 	 */
 	public abstract Object queryPagenate(int pageNum, int size);
-	
+
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		// TODO Auto-generated method stub
+		return super.clone();
+	}
 }
