@@ -37,6 +37,7 @@ public class DBManager {
 		conf.setUrl(pros.getProperty("datasource.url"));
 		conf.setSrcPath(pros.getProperty("orm.srcPath"));
 		conf.setUseDB(pros.getProperty("datasource.dbtype"));
+		conf.setQueryClass(pros.getProperty("datasource.queryClass"));
 	}
 
 	/**

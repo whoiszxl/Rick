@@ -42,11 +42,21 @@ public class Configuration {
 	 */
 	private String poPackage;
 	
+	/**
+	 * 当前使用查询类的路径
+	 */
+	private String queryClass;
+	
+	
+	
+	
 	public Configuration() {
 	}
 
+	
+	
 	public Configuration(String driver, String url, String username, String password, String useDB, String srcPath,
-			String poPackage) {
+			String poPackage, String queryClass) {
 		super();
 		this.driver = driver;
 		this.url = url;
@@ -55,6 +65,17 @@ public class Configuration {
 		this.useDB = useDB;
 		this.srcPath = srcPath;
 		this.poPackage = poPackage;
+		this.queryClass = queryClass;
+	}
+
+
+
+	public String getQueryClass() {
+		return queryClass;
+	}
+
+	public void setQueryClass(String queryClass) {
+		this.queryClass = queryClass;
 	}
 
 	public String getDriver() {
