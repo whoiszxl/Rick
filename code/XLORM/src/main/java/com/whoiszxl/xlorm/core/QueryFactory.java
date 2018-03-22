@@ -12,7 +12,7 @@ public class QueryFactory {
 	
 	private static Query prototypeObj; //原型对象
 	
-	static {
+	static {		
 		try {
 			System.out.println(DBManager.getConfig().getQueryClass());
 			Class c = Class.forName(DBManager.getConfig().getQueryClass());

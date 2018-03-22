@@ -50,6 +50,7 @@ public class DBConnPool {
 	public synchronized Connection getConnection() {
 		int last_index = pool.size() - 1;
 		Connection connection = pool.get(last_index);
+		System.out.println("获取一个"+last_index+"连接池");
 		pool.remove(last_index);
 		return connection;
 	}
@@ -61,6 +62,7 @@ public class DBConnPool {
 		if(pool.size() >= POOL_MAX_SIZE) {
 			try {
 				if(conn != null) {
+					System.out.println("将连接放回连接池");
 					conn.close();
 				}
 			} catch (Exception e) {
@@ -75,6 +77,7 @@ public class DBConnPool {
 	 * 构造方法
 	 */
 	public DBConnPool() {
+		System.out.println("初始化连接池");
 		initPool();
 	}
 	

@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.Properties;
 
 import com.whoiszxl.xlorm.bean.Configuration;
+import com.whoiszxl.xlorm.pool.DBConnPool;
 
 /**
  * 根据配置信息,维持连接对象的管理(具有连接池功能)
@@ -21,6 +22,8 @@ public class DBManager {
 	 * 数据库配置信息
 	 */
 	private static Configuration conf;
+	
+	private static DBConnPool pool;
 	
 	static {//仅加载一次
 		Properties pros = new Properties();
@@ -40,6 +43,8 @@ public class DBManager {
 		conf.setQueryClass(pros.getProperty("orm.queryClass"));
 		conf.setPoolMaxSize(Integer.parseInt(pros.getProperty("pool.maxSize")));
 		conf.setPoolMinSize(Integer.parseInt(pros.getProperty("pool.minSize")));
+		
+		
 	}
 
 	/**
@@ -61,13 +66,10 @@ public class DBManager {
 	 * @return
 	 */
 	public static Connection getConnection() {
-		try {
-			Class.forName(conf.getDriver());
-			return DriverManager.getConnection(conf.getUrl(),conf.getUsername(),conf.getPassword());
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
+		if(pool == null) {
+			pool = new DBConnPool();
 		}
+		return pool.getConnection();
 	}
 	
 	
@@ -97,11 +99,13 @@ public class DBManager {
 		
 		try {
 			if(conn!=null) {
-				conn.close();
+				//conn.close();
+				pool.close(conn);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 	}
 	
 	/**
@@ -111,7 +115,7 @@ public class DBManager {
 	public static void close(Connection conn) {
 		try {
 			if(conn!=null) {
-				conn.close();
+				pool.close(conn);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -142,7 +146,8 @@ public class DBManager {
 		
 		try {
 			if(conn!=null) {
-				conn.close();
+				//conn.close();
+				pool.close(conn);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
