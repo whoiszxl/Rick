@@ -47,16 +47,24 @@ public class Configuration {
 	 */
 	private String queryClass;
 	
+	/**
+	 * 连接池最大连接数
+	 */
+	private int poolMaxSize;
+	
+	/**
+	 * 连接池最小连接数
+	 */
+	private int poolMinSize;
+	
 	
 	
 	
 	public Configuration() {
 	}
 
-	
-	
 	public Configuration(String driver, String url, String username, String password, String useDB, String srcPath,
-			String poPackage, String queryClass) {
+			String poPackage, String queryClass, int poolMaxSize, int poolMinSize) {
 		super();
 		this.driver = driver;
 		this.url = url;
@@ -66,9 +74,25 @@ public class Configuration {
 		this.srcPath = srcPath;
 		this.poPackage = poPackage;
 		this.queryClass = queryClass;
+		this.poolMaxSize = poolMaxSize;
+		this.poolMinSize = poolMinSize;
 	}
 
+	public int getPoolMaxSize() {
+		return poolMaxSize;
+	}
 
+	public void setPoolMaxSize(int poolMaxSize) {
+		this.poolMaxSize = poolMaxSize;
+	}
+
+	public int getPoolMinSize() {
+		return poolMinSize;
+	}
+
+	public void setPoolMinSize(int poolMinSize) {
+		this.poolMinSize = poolMinSize;
+	}
 
 	public String getQueryClass() {
 		return queryClass;

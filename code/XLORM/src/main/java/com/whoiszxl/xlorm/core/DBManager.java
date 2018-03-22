@@ -38,8 +38,24 @@ public class DBManager {
 		conf.setSrcPath(pros.getProperty("orm.srcPath"));
 		conf.setUseDB(pros.getProperty("datasource.dbtype"));
 		conf.setQueryClass(pros.getProperty("orm.queryClass"));
+		conf.setPoolMaxSize(Integer.parseInt(pros.getProperty("pool.maxSize")));
+		conf.setPoolMinSize(Integer.parseInt(pros.getProperty("pool.minSize")));
 	}
 
+	/**
+	 * 创建数据库连接
+	 * @return
+	 */
+	public static Connection createConnection() {
+		try {
+			Class.forName(conf.getDriver());
+			return DriverManager.getConnection(conf.getUrl(),conf.getUsername(),conf.getPassword());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	/**
 	 * 获取数据库连接
 	 * @return
@@ -53,6 +69,8 @@ public class DBManager {
 			return null;
 		}
 	}
+	
+	
 	
 	/**
 	 * 关闭 rs,ps和conn
