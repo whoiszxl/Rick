@@ -24,7 +24,7 @@ public class UserRepositoryServiceImpl implements UserRepositoryService{
 	public Users createUser(String name, Integer age) {
 		Users user = userRepository.save(new Users(name,age));
 		return user;
-//		starRepository.save(new Star(1, name));
+//		starRepository.save(new Star(8, name));
 //		return null;
 	}
 

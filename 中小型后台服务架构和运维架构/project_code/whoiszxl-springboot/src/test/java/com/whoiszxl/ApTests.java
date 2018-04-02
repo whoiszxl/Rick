@@ -43,10 +43,11 @@ public class ApTests {
 //			userServiceRepo.deleteByName("chenhuixian"+i);
 //		}
 		
-		//userServiceRepo.createUser("王菀之", 29);
+		
 		
 		//测试多数据源
-		userServiceRepo.createStarUser("崔健");
+		//userServiceRepo.createStarUser("崔健");
+		userServiceRepo.createUser("王菀之11", 29);
 	}
 	
 	@Test
@@ -59,7 +60,7 @@ public class ApTests {
 	
 	
 	/**
-	 * 测试主从数据源操作
+	 * 测试主从数据源JPA操作
 	 * @throws Exception
 	 */
 	@Test

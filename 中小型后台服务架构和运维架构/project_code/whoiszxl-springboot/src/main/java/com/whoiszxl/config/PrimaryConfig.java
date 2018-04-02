@@ -27,7 +27,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories(
 		entityManagerFactoryRef="entityManagerFactoryPrimary",
 		transactionManagerRef="transactionManagerPrimary",
-		basePackages= {"com.whoiszxl.bean.primary"}
+		basePackages= {"com.whoiszxl.repo.primary"}//指定repository的包路径
 		)
 public class PrimaryConfig {
 

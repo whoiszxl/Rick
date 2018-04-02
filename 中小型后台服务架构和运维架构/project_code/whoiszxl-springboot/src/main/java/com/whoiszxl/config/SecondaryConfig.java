@@ -2,6 +2,7 @@ package com.whoiszxl.config;
 
 import java.util.Map;
 
+import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,19 +26,22 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-		entityManagerFactoryRef="entityManagerFactorysecondary",
-		transactionManagerRef="transactionManagersecondary",
-		basePackages= {"com.whoiszxl.bean.secondary"}
+		entityManagerFactoryRef="entityManagerFactorySecondary",
+		transactionManagerRef="transactionManagerSecondary",
+		basePackages= {"com.whoiszxl.repo.secondary"}//指定repository的包路径
 		)
 public class SecondaryConfig {
 
 	@Autowired
 	@Qualifier("secondaryDataSource")
 	private DataSource secondaryDataSource;
+	@Bean(name = "entityManagerSecondary")
+	public EntityManager entityManager(EntityManagerFactoryBuilder builder) {
+		return entityManagerFactorySecondary(builder).getObject().createEntityManager();
+	}
 	
-	@Primary
-	@Bean(name = "entityManagerFactorysecondary")
-	public LocalContainerEntityManagerFactoryBean entityManagerFactorysecondary(EntityManagerFactoryBuilder builder) {
+	@Bean(name = "entityManagerFactorySecondary")
+	public LocalContainerEntityManagerFactoryBean entityManagerFactorySecondary(EntityManagerFactoryBuilder builder) {
 		return builder
 				.dataSource(secondaryDataSource)
 				.properties(getVendorProperties(secondaryDataSource))
@@ -53,9 +57,8 @@ public class SecondaryConfig {
 		return jpaProperties.getHibernateProperties(dataSource);
 	}
 	
-	@Primary
-	@Bean(name = "transactionManagersecondary")
-	public PlatformTransactionManager transactionManagersecondary(EntityManagerFactoryBuilder builder) {
-		return new JpaTransactionManager(entityManagerFactorysecondary(builder).getObject());
+	@Bean(name = "transactionManagerSecondary")
+	public PlatformTransactionManager transactionManagerSecondary(EntityManagerFactoryBuilder builder) {
+		return new JpaTransactionManager(entityManagerFactorySecondary(builder).getObject());
 	}
 }
