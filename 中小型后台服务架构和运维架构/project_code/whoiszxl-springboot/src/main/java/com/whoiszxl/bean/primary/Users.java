@@ -1,4 +1,4 @@
-package com.whoiszxl.bean;
+package com.whoiszxl.bean.primary;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

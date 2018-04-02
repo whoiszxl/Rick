@@ -10,8 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.whoiszxl.bean.Users;
+import com.whoiszxl.bean.primary.Users;
+import com.whoiszxl.bean.secondary.Star;
 import com.whoiszxl.jdbc_temp.UserServiceRepo;
+import com.whoiszxl.repo.primary.UserRepository;
+import com.whoiszxl.repo.secondary.StarRepository;
 import com.whoiszxl.service.UserRepositoryService;
 
 @RunWith(SpringRunner.class)
@@ -52,6 +55,17 @@ public class ApTests {
 		System.out.println(user);
 //		List<Users> selectAllUser = userRepositoryService.selectAllUser();
 //		System.out.println(selectAllUser);
+	}
+	
+	
+	/**
+	 * 测试主从数据源操作
+	 * @throws Exception
+	 */
+	@Test
+	public void testPrimaryAndSecondaryDbConnect() throws Exception {
+		
+		userRepositoryService.createUser("窦唯", 18);
 	}
 	
 

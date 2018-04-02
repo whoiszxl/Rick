@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.whoiszxl.bean.Users;
+import com.whoiszxl.bean.primary.Users;
 import com.whoiszxl.exception.MyException;
 
 import io.swagger.annotations.ApiOperation;

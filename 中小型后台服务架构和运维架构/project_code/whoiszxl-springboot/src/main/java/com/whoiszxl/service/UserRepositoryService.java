@@ -2,7 +2,7 @@ package com.whoiszxl.service;
 
 import java.util.List;
 
-import com.whoiszxl.bean.Users;
+import com.whoiszxl.bean.primary.Users;
 
 public interface UserRepositoryService {
 
