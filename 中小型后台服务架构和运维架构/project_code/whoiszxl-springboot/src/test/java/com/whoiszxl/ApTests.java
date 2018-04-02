@@ -36,11 +36,14 @@ public class ApTests {
 //			userServiceRepo.createUser("chenhuixian"+i, i);
 //		}
 		
-		for (int i = 0; i < 99; i++) {
-			userServiceRepo.deleteByName("chenhuixian"+i);
-		}
+//		for (int i = 0; i < 99; i++) {
+//			userServiceRepo.deleteByName("chenhuixian"+i);
+//		}
 		
+		//userServiceRepo.createUser("王菀之", 29);
 		
+		//测试多数据源
+		userServiceRepo.createStarUser("崔健");
 	}
 	
 	@Test

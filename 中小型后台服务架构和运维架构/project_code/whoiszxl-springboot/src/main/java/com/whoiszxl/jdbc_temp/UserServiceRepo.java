@@ -21,6 +21,9 @@ public interface UserServiceRepo {
 	void deleteByName(String name);
 	
 	
+	void createStarUser(String name);
+	
+	
 	
 	
 }
