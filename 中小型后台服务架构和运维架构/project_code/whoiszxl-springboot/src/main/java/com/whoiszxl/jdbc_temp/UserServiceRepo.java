@@ -1,4 +1,4 @@
-package com.whoiszxl.repo;
+package com.whoiszxl.jdbc_temp;
 
 /**
  * 用户数据持久层接口

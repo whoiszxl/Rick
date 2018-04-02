@@ -1,15 +1,28 @@
 package com.whoiszxl.bean;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 /**
  * User实体类
  * @author whoiszxl
  *
  */
-public class User {
+@Entity
+public class Users {
 	
+	@Id
+	@GeneratedValue
 	private Integer id;
+	
+	@Column(nullable=false)
 	private String username;
+	
+	@Column(nullable=false)
 	private Integer age;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -28,14 +41,17 @@ public class User {
 	public void setAge(Integer age) {
 		this.age = age;
 	}
-	public User(Integer id, String username, Integer age) {
-		super();
-		this.id = id;
+	public Users(String username, Integer age) {
 		this.username = username;
 		this.age = age;
 	}
-	public User() {
+	public Users() {
 		super();
 	}
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", age=" + age + "]";
+	}
 
+	
 }

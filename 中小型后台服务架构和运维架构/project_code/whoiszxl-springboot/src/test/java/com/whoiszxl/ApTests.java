@@ -1,12 +1,18 @@
 package com.whoiszxl;
 
+import static org.junit.Assert.*;
+
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.whoiszxl.repo.UserServiceRepo;
+import com.whoiszxl.bean.Users;
+import com.whoiszxl.jdbc_temp.UserServiceRepo;
+import com.whoiszxl.service.UserRepositoryService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -14,6 +20,9 @@ public class ApTests {
 
 	@Autowired
 	private UserServiceRepo userServiceRepo;
+	
+	@Autowired
+	private UserRepositoryService userRepositoryService;
 	
 	@Test
 	public void contextLoads() {
@@ -33,5 +42,14 @@ public class ApTests {
 		
 		
 	}
+	
+	@Test
+	public void createAndSelectByJpa() throws Exception {
+		Users user = userRepositoryService.createUser("窦唯", 24);
+		System.out.println(user);
+//		List<Users> selectAllUser = userRepositoryService.selectAllUser();
+//		System.out.println(selectAllUser);
+	}
+	
 
 }

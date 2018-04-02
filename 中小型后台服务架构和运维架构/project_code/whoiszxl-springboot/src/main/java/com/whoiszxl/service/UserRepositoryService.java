@@ -1,0 +1,12 @@
+package com.whoiszxl.service;
+
+import java.util.List;
+
+import com.whoiszxl.bean.Users;
+
+public interface UserRepositoryService {
+
+	Users createUser(String name, Integer age);
+	
+	List<Users> selectAllUser();
+}

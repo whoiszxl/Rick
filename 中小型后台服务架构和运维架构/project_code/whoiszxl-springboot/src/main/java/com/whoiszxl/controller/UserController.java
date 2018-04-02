@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.whoiszxl.bean.User;
+import com.whoiszxl.bean.Users;
 import com.whoiszxl.exception.MyException;
 
 import io.swagger.annotations.ApiOperation;
@@ -26,15 +26,15 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping(value = "/users")
 public class UserController {
 	
-	static Map<Integer, User> a = Collections.synchronizedMap(new HashMap<Integer, User>());
+	static Map<Integer, Users> a = Collections.synchronizedMap(new HashMap<Integer, Users>());
 	
 	
 	@ApiOperation(value = "获取用户列表") //swagger2的注释
 	@GetMapping("/list")
-	public List<User> getUserList() {
-		a.put(1, new User(1, "chenhuixian", 23));
-		a.put(2, new User(2, "long", 22));
-		List<User> users = new ArrayList<User>(a.values());
+	public List<Users> getUserList() {
+		a.put(1, new Users("chenhuixian", 23));
+		a.put(2, new Users("long", 22));
+		List<Users> users = new ArrayList<Users>(a.values());
 		return users;
 	}
 	
