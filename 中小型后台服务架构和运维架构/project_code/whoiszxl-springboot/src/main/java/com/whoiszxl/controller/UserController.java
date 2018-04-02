@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.whoiszxl.bean.User;
 
+import io.swagger.annotations.ApiOperation;
+
 /**
  * 基础测试用户实例
  * @author whoiszxl
@@ -26,6 +28,7 @@ public class UserController {
 	static Map<Integer, User> a = Collections.synchronizedMap(new HashMap<Integer, User>());
 	
 	
+	@ApiOperation(value = "获取用户列表") //swagger2的注释
 	@GetMapping("/list")
 	public List<User> getUserList() {
 		a.put(1, new User(1, "chenhuixian", 23));
