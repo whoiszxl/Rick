@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.whoiszxl.bean.User;
+import com.whoiszxl.exception.MyException;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -35,6 +36,16 @@ public class UserController {
 		a.put(2, new User(2, "long", 22));
 		List<User> users = new ArrayList<User>(a.values());
 		return users;
+	}
+	
+	@GetMapping("/error")
+	public String hello() throws MyException {
+		try {
+			int a = 1/0;
+		} catch (Exception e) {
+			throw new MyException("hello this is my demo exception");
+		}
+		return "11";
 	}
 
 }
