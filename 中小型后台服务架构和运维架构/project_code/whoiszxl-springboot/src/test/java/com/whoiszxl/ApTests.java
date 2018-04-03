@@ -6,13 +6,16 @@ import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.whoiszxl.bean.primary.Users;
+import com.whoiszxl.bean.secondary.People;
 import com.whoiszxl.bean.secondary.Star;
 import com.whoiszxl.jdbc_temp.UserServiceRepo;
+import com.whoiszxl.repo.PeopleMapper;
 import com.whoiszxl.repo.primary.UserRepository;
 import com.whoiszxl.repo.secondary.StarRepository;
 import com.whoiszxl.service.StarRepositoryService;
@@ -20,6 +23,7 @@ import com.whoiszxl.service.UserRepositoryService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@MapperScan("com.whoiszxl.repo")
 public class ApTests {
 
 	@Autowired
@@ -89,5 +93,16 @@ public class ApTests {
 		System.out.println(pageContentByName);
 	}
 	
+	@Autowired
+	private PeopleMapper peopleMapper;
+	
+	@Test
+	public void testMybatis() throws Exception {
+//		peopleMapper.insert("陈慧娴", "香港");
+//		peopleMapper.insert("张学友", "香港");
+//		peopleMapper.insert("窦唯", "北京");
+		People p = peopleMapper.findByUsername("张学友");
+		System.out.println(p);
+	}
 
 }
