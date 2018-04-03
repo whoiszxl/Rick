@@ -1,7 +1,5 @@
 package com.whoiszxl;
 
-import static org.junit.Assert.*;
-
 import java.util.List;
 
 import org.junit.Test;
@@ -9,6 +7,8 @@ import org.junit.runner.RunWith;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.whoiszxl.bean.primary.Users;
@@ -104,5 +104,26 @@ public class ApTests {
 		People p = peopleMapper.findByUsername("张学友");
 		System.out.println(p);
 	}
+	
+	
+	@Autowired
+	private StringRedisTemplate stringRedisTemplate;
 
+	@Autowired
+	private RedisTemplate<String, Star> redisTemplate;
+	
+	@Test
+	public void testRedis() throws Exception {
+		//stringRedisTemplate.opsForValue().set("username", "whoiszxl");
+		
+		//System.out.println(stringRedisTemplate.opsForValue().get("username"));
+		
+		//redis使用实体类
+		Star s = new Star(1, "崔健");
+		redisTemplate.opsForValue().set("star", s);
+		Star star = redisTemplate.opsForValue().get("star");
+		System.out.println(star);
+		
+	}
+	
 }
