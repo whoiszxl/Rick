@@ -15,6 +15,7 @@ import com.whoiszxl.bean.secondary.Star;
 import com.whoiszxl.jdbc_temp.UserServiceRepo;
 import com.whoiszxl.repo.primary.UserRepository;
 import com.whoiszxl.repo.secondary.StarRepository;
+import com.whoiszxl.service.StarRepositoryService;
 import com.whoiszxl.service.UserRepositoryService;
 
 @RunWith(SpringRunner.class)
@@ -26,6 +27,9 @@ public class ApTests {
 	
 	@Autowired
 	private UserRepositoryService userRepositoryService;
+	
+	@Autowired
+	private StarRepositoryService starRepositoryService;
 	
 	@Test
 	public void contextLoads() {
@@ -67,6 +71,22 @@ public class ApTests {
 	public void testPrimaryAndSecondaryDbConnect() throws Exception {
 		
 		userRepositoryService.createUser("窦唯", 18);
+	}
+	
+	
+	/**
+	 * 分页测试
+	 * @throws Exception
+	 */
+	@Test
+	public void pageTest() throws Exception {
+//		List<Star> pageContent = starRepositoryService.getPageContent(1, 3);
+//		
+//		System.out.println(pageContent);
+		
+		
+		List<Star> pageContentByName = starRepositoryService.getPageContentByName(0, 6, "窦唯");
+		System.out.println(pageContentByName);
 	}
 	
 
