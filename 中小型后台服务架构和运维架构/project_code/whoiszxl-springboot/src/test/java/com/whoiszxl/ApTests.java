@@ -3,6 +3,7 @@ package com.whoiszxl;
 import static org.junit.Assert.*;
 
 import java.util.List;
+import java.util.concurrent.Future;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,6 +18,7 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import com.whoiszxl.bean.primary.Users;
 import com.whoiszxl.bean.secondary.People;
 import com.whoiszxl.bean.secondary.Star;
+import com.whoiszxl.crontask.AsyncTask;
 import com.whoiszxl.jdbc_temp.UserServiceRepo;
 import com.whoiszxl.repo.PeopleMapper;
 import com.whoiszxl.repo.primary.UserRepository;
@@ -138,6 +140,41 @@ public class ApTests {
 			//手动回滚,测试的时候没设置这个也实现了回滚..
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 			e.printStackTrace();
+		}
+	}
+	
+	@Autowired
+	private AsyncTask asyncTask;
+	
+	/**
+	 * 异步测试
+	 * @throws Exception
+	 */
+	@Test
+	public void testAsync() throws Exception {
+		//不带返回值调用
+//		asyncTask.dealNotReturnTask();
+//		System.out.println("main task run....");
+//		Thread.sleep(4000);
+		
+		//带返回值调用
+		Future<String> future = asyncTask.dealHaveReturnTask();
+		System.out.println("开始调用主任务");
+		
+		while(true) {
+			if(future.isCancelled()) {
+				System.out.println("异步任务被取消了");
+				break;
+			}
+			
+			if(future.isDone()) {
+				System.out.println("异步任务执行完成了");
+				System.out.println("异步任务的返回值是:"+future.get());
+				break;
+			}
+			
+			System.out.println("等待异步任务结束");
+			Thread.sleep(1000);
 		}
 	}
 	
