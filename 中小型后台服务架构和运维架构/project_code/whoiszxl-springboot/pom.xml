@@ -95,10 +95,16 @@
 		</dependency>
 		
 		<!-- 连接mongodb -->
-		<!-- <dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>
-		</dependency> -->
+		</dependency>
+		
+		<!-- 连接mongodb存储日志,AOP依赖 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
 		
 		<!-- log4j日志 -->
 		<dependency>
