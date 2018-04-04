@@ -16,12 +16,12 @@ import com.whoiszxl.bean.secondary.Star;
  *
  */
 @CacheConfig(cacheNames="star_cache1")//缓存会存到star_cache1这个缓存对象中去
-@Cacheable
 public interface StarRepository extends JpaRepository<Star, Integer>,JpaSpecificationExecutor<Star>{
 	
 	/**
 	 * @Cacheable查询的时候先从缓存中查,查不到就从数据库查询
 	 * 
 	 */
+	@Cacheable
 	List<Star> findByStarname(String starname);
 }
