@@ -41,6 +41,11 @@ public class UserController {
 		return users;
 	}
 	
+	@RequestMapping("/world")
+	public String world() {
+		return "world";
+	}
+	
 	@GetMapping("/error")
 	public String hello() throws MyException {
 		try {
