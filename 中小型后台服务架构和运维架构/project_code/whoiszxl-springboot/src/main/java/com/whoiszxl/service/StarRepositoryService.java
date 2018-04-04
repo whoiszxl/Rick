@@ -23,4 +23,7 @@ public interface StarRepositoryService {
 	 * @return
 	 */
 	List<Star> getPageContentByName(int page, int size, String name);
+	
+	
+	int CreateStar(String starname);
 }

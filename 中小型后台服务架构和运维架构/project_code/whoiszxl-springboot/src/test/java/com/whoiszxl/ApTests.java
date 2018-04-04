@@ -1,5 +1,7 @@
 package com.whoiszxl;
 
+import static org.junit.Assert.*;
+
 import java.util.List;
 
 import org.junit.Test;
@@ -10,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.whoiszxl.bean.primary.Users;
 import com.whoiszxl.bean.secondary.People;
@@ -124,6 +127,18 @@ public class ApTests {
 		Star star = redisTemplate.opsForValue().get("star");
 		System.out.println(star);
 		
+	}
+	
+	
+	@Test
+	public void testTran() throws Exception {
+		try {
+			starRepositoryService.CreateStar("事务测试");
+		} catch (Exception e) {
+			//手动回滚,测试的时候没设置这个也实现了回滚..
+			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			e.printStackTrace();
+		}
 	}
 	
 }

@@ -30,6 +30,15 @@ public class Star implements Serializable{
 	public Star() {
 		super();
 	}
+	
+	
+
+	public Star(String starname) {
+		super();
+		this.starname = starname;
+	}
+
+
 
 	public Star(Integer id, String starname) {
 		super();

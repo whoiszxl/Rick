@@ -15,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.whoiszxl.bean.secondary.Star;
 import com.whoiszxl.repo.secondary.StarRepository;
@@ -55,6 +56,19 @@ public class StarRepositoryServiceImpl implements StarRepositoryService{
 			}
 		},pageable);
 		return findAll.getContent();
+	}
+
+	@Override
+	@Transactional(value="transactionManagerSecondary")//开启事务,指定第二个数据源的事务管理
+	public int CreateStar(String starname) {
+		starRepository.save(new Star(starname));
+		
+		/*********事务测试*************/
+		
+		starRepository.save(new Star("事务测试罗事务测试罗事务测试罗事务测试罗事务测试罗事务测试罗事务测试罗事务测试罗事务测试罗事务测试罗"));
+		
+		/**************************/
+		return 1;
 	}
 
 }
