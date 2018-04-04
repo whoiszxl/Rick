@@ -65,7 +65,7 @@ public class StarRepositoryServiceImpl implements StarRepositoryService{
 		
 		/*********事务测试*************/
 		
-		starRepository.save(new Star("事务测试罗事务测试罗事务测试罗事务测试罗事务测试罗事务测试罗事务测试罗事务测试罗事务测试罗事务测试罗"));
+		//starRepository.save(new Star("事务测试罗事务测试罗事务测试罗事务测试罗事务测试罗事务测试罗事务测试罗事务测试罗事务测试罗事务测试罗"));
 		
 		/**************************/
 		return 1;
