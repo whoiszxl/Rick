@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: product
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: springcloud_sell
+    password: springcloud_sell
+    url: jdbc:mysql://whoiszxl.com/springcloud_sell?characterEncoding=utf-8&useSSL=false
+  jpa:
+    show-sql: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
