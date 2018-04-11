@@ -30,3 +30,8 @@ hs_err_pid*
 node_modules
 .metadata
 RemoteSystemsTempFiles
+Servers
+.mvn
+mvnw
+mvnw.cmd
+.settings
