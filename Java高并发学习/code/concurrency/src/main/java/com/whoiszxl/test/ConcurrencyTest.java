@@ -1,60 +1,20 @@
-## 标记注解
-```java
+package com.whoiszxl.test;
+
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Semaphore;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.whoiszxl.annotations.NotThreadSafe;
+
 /**
- * 标记为不推荐类or写法的注解
+ * 线程并发测试
  * @author whoiszxl
  *
  */
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.SOURCE)//在编译时候忽略
-public @interface NotRecommend {
-
-	String value() default "";
-}
-
-/**
- * 标记线程不安全的注解
- * @author whoiszxl
- *
- */
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.SOURCE)//在编译时候忽略
-public @interface NotThreadSafe {
-
-	String value() default "";
-}
-
-/**
- * 标记为推荐类or写法的注解
- * @author whoiszxl
- *
- */
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.SOURCE)//在编译时候忽略
-public @interface Recommend {
-
-	String value() default "";
-}
-
-/**
- * 标记线程安全的注解
- * @author whoiszxl
- *
- */
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.SOURCE)//在编译时候忽略
-public @interface ThreadSafe {
-
-	String value() default "";
-}
-
-```
-
-## 接口性能测试工具
-1. ab：`ab -n 1000 -c 50 http://www.whoiszxl.com/users` ，请求总数为1000，并发50
-2. jmeter：界面操作咯
-3. 代码模拟：
-```java
 @NotThreadSafe
 public class ConcurrencyTest {
 	
@@ -97,4 +57,3 @@ public class ConcurrencyTest {
 		log.info("count: {}", count);
 	}
 }
-```
