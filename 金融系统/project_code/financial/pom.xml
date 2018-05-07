@@ -6,7 +6,7 @@
 	<groupId>com.whoiszxl</groupId>
 	<artifactId>financial</artifactId>
 	<version>1.0.0</version>
-	<packaging>jar</packaging>
+	<packaging>pom</packaging>
 
 	<name>financial</name>
 	<description>financial</description>
