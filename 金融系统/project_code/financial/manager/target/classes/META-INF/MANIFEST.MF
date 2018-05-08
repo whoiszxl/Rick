@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Implementation-Title: manager
 Implementation-Version: 1.0.0
-Built-By: whoiszxl
+Built-By: Administrator
 Implementation-Vendor-Id: com.whoiszxl
-Build-Jdk: 1.8.0_91
+Build-Jdk: 1.8.0_161
 Implementation-URL: http://projects.spring.io/spring-boot/financial/ma
  nager/
 Created-By: Maven Integration for Eclipse
