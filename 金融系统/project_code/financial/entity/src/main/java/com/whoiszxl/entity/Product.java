@@ -53,7 +53,24 @@ public class Product {
 	private String createUser;
 	private String updateUser;
 	
+	public Product() {
+	}
+
 	
+
+	public Product(String id, String name, String status, BigDecimal thresholdAmount, BigDecimal stepAmount,
+			BigDecimal rewardRate) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.status = status;
+		this.thresholdAmount = thresholdAmount;
+		this.stepAmount = stepAmount;
+		this.rewardRate = rewardRate;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return ReflectionToStringBuilder.toString(this, ToStringStyle.JSON_STYLE);
