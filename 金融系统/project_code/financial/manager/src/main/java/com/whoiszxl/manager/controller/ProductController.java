@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.whoiszxl.entity.Product;
 import com.whoiszxl.manager.service.IProductService;
 
+import io.swagger.annotations.Api;
+
 /**
  * 产品控制器
  * 
@@ -32,6 +34,7 @@ import com.whoiszxl.manager.service.IProductService;
  */
 @RestController
 @RequestMapping("/products")
+@Api(tags = "product", description = "产品接口")
 public class ProductController {
 
 	private static Logger log = LoggerFactory.getLogger(ProductController.class);

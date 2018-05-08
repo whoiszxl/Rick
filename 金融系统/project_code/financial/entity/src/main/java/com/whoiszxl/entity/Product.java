@@ -11,12 +11,15 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.whoiszxl.enums.ProductStatus;
 
+import io.swagger.annotations.ApiModel;
+
 /**
  * 产品实体类
  * @author whoiszxl
  *
  */
 @Entity
+@ApiModel(value = "ppp", description = "产品模型")
 public class Product {
 
 	@Id
