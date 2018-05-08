@@ -22,6 +22,7 @@ import org.springframework.util.Assert;
 
 import com.whoiszxl.entity.Product;
 import com.whoiszxl.enums.ProductStatus;
+import com.whoiszxl.manager.exception.ErrorEnum;
 import com.whoiszxl.manager.repositories.ProductRepository;
 import com.whoiszxl.manager.service.IProductService;
 
@@ -117,7 +118,7 @@ public class ProductServiceImpl implements IProductService {
 	 * @param product
 	 */
 	private void checkProduct(Product product) {
-		Assert.notNull(product.getId(), "编号不能为空");
+		Assert.notNull(product.getId(), ErrorEnum.ID_NOT_NULL.getCode());
 		Assert.isTrue(BigDecimal.ZERO.compareTo(product.getRewardRate()) < 0
 				&& BigDecimal.valueOf(30).compareTo(product.getRewardRate()) >= 0, "收益率要0-30");
 		Assert.isTrue(BigDecimal.valueOf(product.getStepAmount().longValue()).compareTo(product.getStepAmount()) == 0,
