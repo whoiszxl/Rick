@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Implementation-Title: quartz
 Implementation-Version: 1.0.0
-Built-By: Administrator
+Built-By: whoiszxl
 Implementation-Vendor-Id: com.whoiszxl
-Build-Jdk: 1.8.0_161
+Build-Jdk: 1.8.0_91
 Implementation-URL: http://projects.spring.io/spring-boot/financial/qu
  artz/
 Created-By: Maven Integration for Eclipse
