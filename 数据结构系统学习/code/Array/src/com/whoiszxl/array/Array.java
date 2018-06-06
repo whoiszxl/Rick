@@ -1,4 +1,4 @@
-package com.whoiszxl;
+package com.whoiszxl.array;
 
 /**
  * 自定义数组
@@ -83,7 +83,7 @@ public class Array<E> {
 		if(size == data.length) {
 			throw new IllegalArgumentException("添加失败，数组容量不够");
 		}
-		if(index < 0 || index >= size) {
+		if(index < 0 || index > size) {
 			throw new IllegalArgumentException("添加失败，传入的位置不合法");
 		}
 		
@@ -105,6 +105,10 @@ public class Array<E> {
 			throw new IllegalArgumentException("获取失败，传入的位置不合法");
 		}
 		return data[index];
+	}
+	
+	public E getLast() {
+		return get(size-1);
 	}
 	
 	
