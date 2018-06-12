@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.stereotype.Controller;
 import org.springframework.context.annotation.ComponentScan.Filter;
+import org.springframework.context.annotation.ComponentScans;
 
 import com.whoiszxl.bean.Person;
 
@@ -18,8 +19,11 @@ import com.whoiszxl.bean.Person;
  *
  */
 @Configuration //告诉spring这是一个配置类，配置类==配置文件
-@ComponentScan(value="com.whoiszxl", excludeFilters = {
-		@Filter(type=FilterType.ANNOTATION, classes= {Controller.class})//过滤掉Controller注解的类
+@ComponentScans(value = {
+		@ComponentScan(value="com.whoiszxl", excludeFilters = {
+				@Filter(type=FilterType.ANNOTATION, classes= {Controller.class}),//过滤掉Controller注解的类
+				@Filter(type=FilterType.CUSTOM, classes= {MyTypeFilter.class})
+		})
 })
 public class MainConfig {
 
