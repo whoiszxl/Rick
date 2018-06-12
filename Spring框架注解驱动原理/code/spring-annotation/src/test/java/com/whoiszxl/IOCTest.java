@@ -5,6 +5,8 @@ import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
 
+import com.whoiszxl.bean.Girl;
+import com.whoiszxl.bean.Man;
 import com.whoiszxl.bean.Person;
 import com.whoiszxl.config.MainConfig;
 
@@ -25,6 +27,7 @@ public class IOCTest {
 			System.out.println(name);
 		}
 		
+		System.out.println("工厂对象："+context.getBean("peopleFactoryBean"));
 		//System.out.println(context.getBean("userService"));
 	}
 	
@@ -40,5 +43,11 @@ public class IOCTest {
 		
 		ConfigurableEnvironment environment = context.getEnvironment();
 		System.out.println(environment.getSystemProperties());
+		
+		Man bean = context.getBean(Man.class);
+		System.out.println(bean);
+		
+		Girl g = (Girl) context.getBean("com.whoiszxl.bean.Girl");
+		System.out.println(g);
 	}
 }

@@ -4,11 +4,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
+import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Controller;
 import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.ComponentScans;
 import org.springframework.context.annotation.Conditional;
 
+import com.whoiszxl.bean.Man;
+import com.whoiszxl.bean.PeopleFactoryBean;
 import com.whoiszxl.bean.Person;
 import com.whoiszxl.condition.OneCondition;
 import com.whoiszxl.condition.TwoCondition;
@@ -28,6 +31,7 @@ import com.whoiszxl.condition.TwoCondition;
 				//@Filter(type=FilterType.CUSTOM, classes= {MyTypeFilter.class})
 		})
 })
+@Import({Man.class,MyImportSelector.class,MyImportBeanDefinitionRegistrar.class})
 public class MainConfig {
 
 	/**
@@ -59,4 +63,9 @@ public class MainConfig {
 	public Person zhong() {
 		return new Person("zhong",23);
 	} 
+	
+	@Bean
+	public PeopleFactoryBean peopleFactoryBean() {
+		return new PeopleFactoryBean();
+	}
 }
