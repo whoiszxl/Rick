@@ -33,10 +33,7 @@ public class MyTypeFilter implements TypeFilter{
 		if(className.contains("User")) {
 			return false;
 		}
-		
 		return true;
 	}
-
-	
 
 }
