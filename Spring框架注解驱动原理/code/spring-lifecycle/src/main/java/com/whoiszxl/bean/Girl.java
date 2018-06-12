@@ -4,11 +4,12 @@ import org.springframework.beans.factory.annotation.Value;
 
 public class Girl {
 
-	@Value("ç±²¨Àö")
+	//@Value("ç±²¨Àö")
+	@Value("${my.username}")
 	private String name;
 
 	public Girl() {
-		this.name = "¾c²¨û";
+		//this.name = "¾c²¨û";
 	}
 
 	public Girl(String name) {
