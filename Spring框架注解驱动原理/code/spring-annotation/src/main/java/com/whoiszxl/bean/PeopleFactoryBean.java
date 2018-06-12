@@ -23,5 +23,4 @@ public class PeopleFactoryBean implements FactoryBean<Girl>{
 	public boolean isSingleton() {
 		return true;
 	}
-
 }
