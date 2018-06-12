@@ -7,8 +7,11 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.stereotype.Controller;
 import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.ComponentScans;
+import org.springframework.context.annotation.Conditional;
 
 import com.whoiszxl.bean.Person;
+import com.whoiszxl.condition.OneCondition;
+import com.whoiszxl.condition.TwoCondition;
 
 /**
  * @ComponentScan
@@ -22,7 +25,7 @@ import com.whoiszxl.bean.Person;
 @ComponentScans(value = {
 		@ComponentScan(value="com.whoiszxl", excludeFilters = {
 				@Filter(type=FilterType.ANNOTATION, classes= {Controller.class}),//过滤掉Controller注解的类
-				@Filter(type=FilterType.CUSTOM, classes= {MyTypeFilter.class})
+				//@Filter(type=FilterType.CUSTOM, classes= {MyTypeFilter.class})
 		})
 })
 public class MainConfig {
@@ -38,4 +41,22 @@ public class MainConfig {
 	public Person person() {
 		return new Person("周二", 22);
 	}
+	
+	/**
+	 * Conditional注解,其按照一定条件进行判断，满足条件才给容器中注册bean
+	 * 如果将注解添加在类上的话，作用范围就是整个类
+	 * 如果是one，取huang，是two,取zhong
+	 * @return
+	 */
+	@Bean("huang")
+	@Conditional({OneCondition.class})
+	public Person huang() {
+		return new Person("huang",22);
+	}
+	
+	@Bean("zhong")
+	@Conditional({TwoCondition.class})
+	public Person zhong() {
+		return new Person("zhong",23);
+	} 
 }
