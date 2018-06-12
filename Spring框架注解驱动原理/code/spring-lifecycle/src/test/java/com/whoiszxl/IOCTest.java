@@ -7,6 +7,7 @@ import org.springframework.core.env.ConfigurableEnvironment;
 
 import com.whoiszxl.bean.Girl;
 import com.whoiszxl.config.MainConfigOfLifeCycle;
+import com.whoiszxl.config.MainConfigOfPropertyValues;
 
 public class IOCTest {
 
@@ -14,7 +15,8 @@ public class IOCTest {
 	
 	@Before
 	public void before() {
-		context = new AnnotationConfigApplicationContext(MainConfigOfLifeCycle.class);
+		//context = new AnnotationConfigApplicationContext(MainConfigOfLifeCycle.class);
+		context = new AnnotationConfigApplicationContext(MainConfigOfPropertyValues.class);
 	}
 	
 	@Test
@@ -23,8 +25,8 @@ public class IOCTest {
 		for (String name : names) {
 			System.out.println(name);
 		}
-		
-		context.close();
+		System.out.println("------------------------");
+		System.out.println(context.getBean("girl"));
 	}
 	
 	

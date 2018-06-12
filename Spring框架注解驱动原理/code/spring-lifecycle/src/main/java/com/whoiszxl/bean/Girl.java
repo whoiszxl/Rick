@@ -1,7 +1,10 @@
 package com.whoiszxl.bean;
 
+import org.springframework.beans.factory.annotation.Value;
+
 public class Girl {
 
+	@Value("ç±²¨Àö")
 	private String name;
 
 	public Girl() {
