@@ -40,6 +40,7 @@ public class Server {
 			f.channel().closeFuture().sync();
 			
 		} catch (Exception e) {
+			e.printStackTrace();
 			bossGroup.shutdownGracefully();
 			workerGroup.shutdownGracefully();
 		}
