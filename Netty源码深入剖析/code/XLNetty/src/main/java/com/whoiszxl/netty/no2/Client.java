@@ -10,7 +10,7 @@ import java.net.Socket;
  */
 public class Client {
 	private static final String HOST = "127.0.0.1";
-    private static final int PORT = 8000;
+    private static final int PORT = 8888;
     private static final int SLEEP_TIME = 5000;
 
     public static void main(String[] args) throws IOException {
