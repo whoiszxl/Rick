@@ -1,9 +1,5 @@
-/// Leetcode 20. Valid Parentheses
-/// https://leetcode.com/problems/valid-parentheses/description/
-/// 括号匹配问题
-///
-/// 使用LinkedListStack测试20号问题的代码在视频中没有提及
-/// 该代码主要用于使用Leetcode上的问题测试我们的LinkedListStack：）
+package com.whoiszxl.stack;
+
 class Solution {
 
     private class LinkedList<E> {
@@ -39,18 +35,14 @@ class Solution {
             size = 0;
         }
 
-        // 获取链表中的元素个数
         public int getSize(){
             return size;
         }
 
-        // 返回链表是否为空
         public boolean isEmpty(){
             return size == 0;
         }
 
-        // 在链表的index(0-based)位置添加新的元素e
-        // 在链表中不是一个常用的操作，练习用：）
         public void add(int index, E e){
 
             if(index < 0 || index > size)
@@ -64,18 +56,15 @@ class Solution {
             size ++;
         }
 
-        // 在链表头添加新的元素e
         public void addFirst(E e){
             add(0, e);
         }
 
-        // 在链表末尾添加新的元素e
         public void addLast(E e){
             add(size, e);
         }
 
-        // 获得链表的第index(0-based)个位置的元素
-        // 在链表中不是一个常用的操作，练习用：）
+
         public E get(int index){
 
             if(index < 0 || index >= size)
@@ -87,18 +76,17 @@ class Solution {
             return cur.e;
         }
 
-        // 获得链表的第一个元素
+
         public E getFirst(){
             return get(0);
         }
 
-        // 获得链表的最后一个元素
+
         public E getLast(){
             return get(size - 1);
         }
 
-        // 修改链表的第index(0-based)个位置的元素为e
-        // 在链表中不是一个常用的操作，练习用：）
+
         public void set(int index, E e){
             if(index < 0 || index >= size)
                 throw new IllegalArgumentException("Update failed. Illegal index.");
@@ -109,7 +97,7 @@ class Solution {
             cur.e = e;
         }
 
-        // 查找链表中是否有元素e
+
         public boolean contains(E e){
             Node cur = dummyHead.next;
             while(cur != null){
@@ -120,13 +108,12 @@ class Solution {
             return false;
         }
 
-        // 从链表中删除index(0-based)位置的元素, 返回删除的元素
-        // 在链表中不是一个常用的操作，练习用：）
+
         public E remove(int index){
             if(index < 0 || index >= size)
                 throw new IllegalArgumentException("Remove failed. Index is illegal.");
 
-            // E ret = findNode(index).e; // 两次遍历
+            // E ret = findNode(index).e; // 涓ゆ閬嶅巻
 
             Node prev = dummyHead;
             for(int i = 0 ; i < index ; i ++)
@@ -140,17 +127,17 @@ class Solution {
             return retNode.e;
         }
 
-        // 从链表中删除第一个元素, 返回删除的元素
+
         public E removeFirst(){
             return remove(0);
         }
 
-        // 从链表中删除最后一个元素, 返回删除的元素
+
         public E removeLast(){
             return remove(size - 1);
         }
 
-        // 从链表中删除元素e
+
         public void removeElement(E e){
 
             Node prev = dummyHead;

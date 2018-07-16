@@ -1,3 +1,5 @@
+package com.whoiszxl.stack;
+
 public class ArrayStack<E> implements Stack<E> {
 
     private Array<E> array;

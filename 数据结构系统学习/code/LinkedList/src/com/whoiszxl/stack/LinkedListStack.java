@@ -1,3 +1,5 @@
+package com.whoiszxl.stack;
+
 public class LinkedListStack<E> implements Stack<E> {
 
     private LinkedList<E> list;
