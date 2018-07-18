@@ -1,5 +1,9 @@
 package com.whoiszxl;
 
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
+
 /**
  * 二分搜索樹
  * @author whoiszxl
@@ -97,14 +101,13 @@ public class BST<E extends Comparable<E>> {
 	
 	
 	/**
-	 * 二分搜索树前序遍历
+	 * 二分搜索树前序遍历,
+	 * 最自然的，最常用的遍历方式
 	 */
 	public void preOrder() {
 		preOrder(root);
 	}
-	
-	
-		
+
 	private void preOrder(Node node) {
 		if(node == null) {
 			return;
@@ -113,9 +116,177 @@ public class BST<E extends Comparable<E>> {
 		preOrder(node.left);
 		preOrder(node.right);
 	}
+
+	
+	/**
+	 * 二分搜索树中序遍历
+	 */
+	public void inOrder() {
+		inOrder(root);
+	}
+	private void inOrder(BST<E>.Node node) {
+		if(node == null) {
+			return;
+		}
+		inOrder(node.left);
+		System.out.println(node.e);
+		inOrder(node.right);
+	}
+
+	
+	/**
+	 * 二分搜索树后序遍历
+	 */
+	public void postOrder() {
+		postOrder(root);
+	}
+	private void postOrder(BST<E>.Node node) {
+		postOrder(node.left);
+		postOrder(node.right);
+		System.out.println(node.e);
+	}
 	
 	
+	/**
+	 * 二分搜索树的非递归前序遍历
+	 * 1. 先将根节点push到栈中
+	 * 2. pop出顶上的节点，将节点的左右节点再次push到栈中
+	 * 3. 循环操作，直到最底端
+	 */
+	public void preOrderNR() {
+		Stack<Node> stack = new Stack<>();
+		stack.push(root);
+		while(!stack.isEmpty()) {
+			
+			Node cur = stack.pop();
+			System.out.println(cur.e);
+			
+			if(cur.right != null) {
+				stack.push(cur.right);
+			}
+			if(cur.left != null) {
+				stack.push(cur.left);
+			}
+		}
+	}
 	
+	/**
+	 * 二分搜索树的层序遍历
+	 * 1. 先将根节点add到队列中
+	 * 2. 每次取出队列的头节点，然后再将头部节点的左右节点继续入队
+	 */
+	public void levelOrder() {
+		Queue<Node> q = new LinkedList<>();
+		q.add(root);
+		while(!q.isEmpty()) {
+			Node cur = q.remove();
+			System.out.println(cur.e);
+			
+			if(cur.left!=null) {
+				q.add(cur.left);
+			}
+			if(cur.right!=null) {
+				q.add(cur.right);
+			}
+		}
+	}
+	
+	
+	/**
+	 * 寻找二分搜索树的最小元素
+	 * @return
+	 */
+	public E minimum() {
+		if(size == 0) {
+			throw new IllegalArgumentException("BST is empty.");
+		}
+		return minimum(root).e;
+	}
+
+
+	/**
+	 * 寻找二分搜索树的最小元素
+	 * 1. 因为最小元素在树的最左端，所以只需要一直递归left下去就能了
+	 * @param node
+	 * @return
+	 */
+	private Node minimum(BST<E>.Node node) {
+		if(node.left == null) {
+			return node;
+		}
+		return minimum(node.left);
+	}
+	
+	
+	/**
+	 * 寻找二分搜索树的最大元素
+	 * @return
+	 */
+	public E maximum() {
+		if(size == 0) {
+			throw new IllegalArgumentException("BST is empty.");
+		}
+		return maximum(root).e;
+	}
+
+
+	/**
+	 * 寻找二分搜索树的最小元素
+	 * 1. 因为最小元素在树的最左端，所以只需要一直递归left下去就能了
+	 * @param node
+	 * @return
+	 */
+	private Node maximum(BST<E>.Node node) {
+		if(node.right == null) {
+			return node;
+		}
+		return maximum(node.right);
+	}
+	
+	public E removeMin() {
+		E e = minimum();
+		root = removeMin(root);	
+		return e;
+	}
+
+
+	private Node removeMin(BST<E>.Node node) {
+		
+		if(node.left == null) {
+			Node rightNode = node.right;
+			node.right = null;
+			size--;
+			return rightNode;
+			
+		}
+		
+		node.left = removeMin(node.left);
+		return node;
+	}
+
+	
+	
+	public E removeMax() {
+		E e = maximum();
+		root = removeMax(root);	
+		return e;
+	}
+
+
+	private Node removeMax(BST<E>.Node node) {
+		
+		if(node.right == null) {
+			Node leftNode = node.left;
+			node.left = null;
+			size--;
+			return leftNode;
+			
+		}
+		
+		node.right = removeMax(node.right);
+		return node;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder res = new StringBuilder();
