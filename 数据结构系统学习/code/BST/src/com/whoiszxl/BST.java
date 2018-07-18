@@ -244,22 +244,29 @@ public class BST<E extends Comparable<E>> {
 	}
 	
 	public E removeMin() {
+		//获取到最小值然后将其返回
 		E e = minimum();
+		//实际进行删除操作的操作
 		root = removeMin(root);	
 		return e;
 	}
 
 
 	private Node removeMin(BST<E>.Node node) {
-		
+		//如果递归到的节点的左节点为空，则这个就是最小值了
 		if(node.left == null) {
+			//先将这个最小值节点的右节点先存着
 			Node rightNode = node.right;
+			//然后将这个节点的右节点清空
 			node.right = null;
+			//size减小
 			size--;
+			//然后将储存到的右节点直接返回
 			return rightNode;
 			
 		}
 		
+		//如果不是最小值，就递归调用左节点直到那个最小节点，然后将每次获取到的值存入left中，遍历到最小节点的时候就自动和node.left接上了
 		node.left = removeMin(node.left);
 		return node;
 	}
