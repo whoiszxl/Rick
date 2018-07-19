@@ -293,6 +293,60 @@ public class BST<E extends Comparable<E>> {
 		node.right = removeMax(node.right);
 		return node;
 	}
+	
+	
+	/**
+	 * 从二分搜索树中删除元素为e的节点
+	 * @param e
+	 */
+	public void remove(E e) {
+		root = remove(root, e);
+	}
+
+	private BST<E>.Node remove(BST<E>.Node node, E e) {
+		if(node == null) {
+			return null;
+		}
+		
+		if(e.compareTo(node.e) < 0) {
+			node.left = remove(node.left, e);
+			return node;
+		}else if(e.compareTo(node.e) > 0) {
+			node.right = remove(node.right, e);
+			return node;
+		}else { //e == node.e
+			
+			//待删除节点左子树为空
+			if(node.left == null) {
+				Node rightNode = node.right;
+				node.right = null;
+				size--;
+				return rightNode;
+			}
+			//待删除节点右子树为空
+			if(node.right == null) {
+				Node leftNode = node.left;
+				node.left = null;
+				size--;
+				return leftNode;
+			}
+			
+			//待删除节点左右子树都不为空
+			//找到比待删除节点大的最小节点（待删除节点右子树的最小节点），用其替代待删除节点
+			Node successor = minimum(node.right);
+			//删除最小节点后会返回这个节点的子树，然后赋值给需要替换上去的节点的右节点
+			successor.right = removeMin(node.right);
+			
+			//将获取到需要替换上去的节点的左子树换成当前节点的左子树
+			successor.left = node.left;
+			
+			//清除不需要的
+			node.left = node.right = null;
+			
+			return successor;
+		}
+	}
+
 
 	@Override
 	public String toString() {
