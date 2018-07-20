@@ -61,6 +61,7 @@ public class LinkedListMap<K, V> implements Map<K, V> {
 			Node delNode = prev.next;
 			prev.next = delNode.next;
 			delNode.next = null;
+			size--;
 			return delNode.value;
 		}
 		
