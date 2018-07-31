@@ -1,0 +1,22 @@
+server:
+  port: 8761
+  
+spring:
+  application:
+    name: registry
+    
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    serviceUrl:
+      defaultZone: http://localhost:${server.port}/eureka/
+      
+      
+security:
+  basic:
+    enabled: true
+  user:
+    name: whoiszxl
+    password: 123456
+    
